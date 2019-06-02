@@ -1,0 +1,19 @@
+FROM python:3.6.2
+
+# Copy all the requirements into the container
+COPY requirements.txt ./
+
+# Update apt-get, install unixodbc-dev
+RUN pip install --upgrade pip
+
+RUN pip install -r ./requirements.txt
+# Copy the application and create the application folder in the container
+COPY ./ /app/
+
+# Set the working directory in the container
+WORKDIR /app
+
+EXPOSE 5000
+
+# Run the application
+CMD python run.py runserver -h 0.0.0.0
